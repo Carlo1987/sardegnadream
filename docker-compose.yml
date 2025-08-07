@@ -1,0 +1,70 @@
+services:
+
+  angular:
+    image: angular.dev-image
+    container_name: sardegnadream-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - 4300:4200
+    volumes:
+      - ./frontend/src:/app/src
+    networks:
+      - sardegnadream
+
+  laravel:
+    image: laravel-image
+    container_name: sardegnadream-backend
+    build:
+      context: ./backend
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8082:80"
+    volumes:
+      - ./backend:/var/www
+    depends_on:
+      - mysql
+    networks:
+      - sardegnadream
+
+    
+  mysql:
+    image: mysql:8.0
+    container_name: sardegnadream-db
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: MiaGatoVolador
+      MYSQL_DATABASE: sardegnadream
+      MYSQL_USER: corsport87
+      MYSQL_PASSWORD: s4rd3gn4dr34m
+    networks:
+      - sardegnadream
+
+
+  phpmyadmin:
+    image: phpmyadmin:5.2.2
+    container_name: sardegnadream-phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: MiaGatoVolador
+    ports:
+    - "8083:80"
+    depends_on:
+      - mysql
+    networks:
+      - sardegnadream
+
+networks:
+  sardegnadream:
+    driver: bridge
+
+
+volumes:
+  db:

@@ -53,5 +53,5 @@ class User extends Authenticatable
     {
         $resetUrl = url(route('password.reset', $token, false));
         Mail::to($this->email)->send(new ResetPasswordMail($this, $resetUrl));
-    }
+    } 
 }

@@ -1,38 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ __('Reset Password') }}</title>
-    <style>
-        .theme{
-            background-color:rgb(118, 189, 228);
-            color: white;
-        }
-        .button{
-            display:inline-block; 
-            text-decoration: none; 
-            font-weight: bold; 
-            border-radius: 5px;
-            padding: 10px 20px; 
-        }
-    </style>
-</head>
-    <body>
-        <x-header-mail class="theme">
-            {{ __('Reset Password') }}
-        </x-header-mail>
+@extends('components.head-mail') 
 
-        <h4>Ciao {{ $user->name }}</h4>
+@section('email-body')
 
-        <p>Per reimpostare la password, clicca il pulsante qui sotto:</p>
+    <x-header-mail class="theme">
+        {{ __('Reset Password') }}
+    </x-header-mail>
 
-        <main style="text-align:center;">
+    <div id="content">
+        <h4> {{ __('common.hello') }} {{ $user->name }}</h4>
+
+        <p> {{ __('email.resetPassword_brief') }} </p>
+
+        <div style="text-align:center;">
             <a href="{{ $resetUrl }}" class="button theme">
-                Reimposta Password
+                {{ __('email.resetPassword_button') }}
             </a>
-        </main>
+        </div>
 
-        <p>Se non hai richiesto il reset, ignora questa email.</p>
-    </body>
-</html>
+        <p> {{ __('email.resetPassword_ignore') }} </p>
+    </div>
+
+@endsection

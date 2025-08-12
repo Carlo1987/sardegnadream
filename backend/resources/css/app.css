@@ -2,5 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+.bg-theme {
+  @apply bg-sky-400 text-white;
+}
 
+.bg-theme:hover,
+.bg-theme:focus {
+  @apply bg-sky-500;
+}
 
+.bg-theme:active {
+  @apply bg-sky-700;
+}
+
+.bg-theme:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}

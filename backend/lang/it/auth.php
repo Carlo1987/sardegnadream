@@ -6,5 +6,4 @@ return [
     'password' => 'La password fornita non è corretta.',
     'throttle' => 'Troppi tentativi di accesso. Riprova tra :seconds secondi.',
     'forgotPassword' => 'Hai dimenticato la password? Clicca qui per resettarla.',
-    'email' => 'Email',
 ];

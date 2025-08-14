@@ -5,6 +5,7 @@ return [
     'profile_info' => 'Informazioni profilo',
     'name' => 'Nome',
     'email' => 'Email',
+    'role' => 'Ruolo',
     'updatePassword' => 'Aggiorna password',
     'currentPassword' => 'Password attuale',
     'newPassword' => 'Nuova password',
@@ -13,4 +14,10 @@ return [
     'deleteAccount_alert' => 'Una volta eliminato il tuo account, tutte le sue risorse e dati verranno eliminati definitivamente.',
     'deleteAccount_confirm' => 'Sei sicuro di voler eliminare il tuo account?',
     'deleteAccount_confirm_alert' => 'Una volta eliminato il tuo account, tutte le sue risorse e dati verranno eliminati definitivamente. Inserisci la password per confermare che desideri eliminare permanentemente il tuo account.',
+   
+    'manageUsers' => 'Gestione utenti',
+    'noUsers' => 'Nessun utente presente',
+    'addUser' => 'Aggiungi utente',
+    'editUser' => 'Modifica utente',
+    'deleteUser' => 'Elimina utente',
 ];

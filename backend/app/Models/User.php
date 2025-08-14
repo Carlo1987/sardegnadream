@@ -9,6 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use App\Mail\ResetPasswordMail;
 use Illuminate\Support\Facades\Mail;
 
+use App\Enums\RolesEnum;
+
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
@@ -53,5 +55,11 @@ class User extends Authenticatable
     {
         $resetUrl = url(route('password.reset', $token, false));
         Mail::to($this->email)->send(new ResetPasswordMail($this, $resetUrl));
+    } 
+
+
+    public function role()
+    {
+        return  RolesEnum::from($this->role_id);
     } 
 }

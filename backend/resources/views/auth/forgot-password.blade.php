@@ -1,6 +1,6 @@
 <x-guest-layout>
     <div class="mb-4 text-md text-gray-600">
-        {{ __('auth.forgotPassword') }}
+        {{ __('auth.forgotPassword_sendEmail') }}
     </div>
 
     <!-- Session Status -->

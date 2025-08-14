@@ -5,6 +5,7 @@ return [
     'loading' => 'Caricamento...',
     'confirm' => 'Conferma',
     'save' => 'Salva',
+    'saved' => 'Salvato',
     'delete' => 'Elimina',
     'login' => 'Accedi',
     'register' => 'Registrare',

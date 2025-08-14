@@ -38,6 +38,12 @@
                             {{ __('profile.profile') }}
                         </x-dropdown-link>
 
+                        @if(Auth::user()->role_id == App\Enums\RolesEnum::ADMIN->value)
+                        <x-dropdown-link :href="route('users.show')">
+                            {{ __('profile.manageUsers') }}
+                        </x-dropdown-link>
+                        @endif
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -81,7 +87,7 @@
 
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
+                    {{ __('profile.profile') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
@@ -91,7 +97,7 @@
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        {{ __('Logout') }}
                     </x-responsive-nav-link>
                 </form>
             </div>

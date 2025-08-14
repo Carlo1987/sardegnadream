@@ -5,6 +5,7 @@ return [
     'loading' => 'Loading...',
     'confirm' => 'Confirm',
     'save' => 'Save',
+    'saved' => 'Saved',
     'delete' => 'Delete',
     'login' => 'Login',
     'register' => 'Register',

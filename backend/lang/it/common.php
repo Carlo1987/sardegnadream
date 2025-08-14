@@ -10,4 +10,5 @@ return [
     'login' => 'Accedi',
     'register' => 'Registrare',
     'cancel' => 'Annulla',
+    'actions' => 'Azioni',
 ];

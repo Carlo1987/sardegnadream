@@ -9,5 +9,6 @@ return [
     'delete' => 'Eliminar',
     'login' => 'Acceder',
     'register' => 'Registrar',
-    'cancel' => 'Cancelar'
+    'cancel' => 'Cancelar',
+    'actions' => 'Acciones',
 ];

@@ -10,10 +10,12 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="flex justify-end">
-                        <div class="w-48 px-2 py-1 bg-theme text-center rounded flex justify-center gap-1 cursor-pointer">
-                            @include('components.svg.add-svg')
+                        <button type="submit" class="w-48 px-2 py-1 bg-theme text-center rounded flex justify-center gap-1 cursor-pointer"
+                            x-data=""
+                            x-on:click.prevent="$dispatch('open-modal', 'upsert-user-modal')">
+                            @include('components.svg.add-icon')
                             {{ __('profile.addUser') }}
-                        </div>
+                        </button>
                     </div>
              
                    @if($users->count() > 0)
@@ -27,4 +29,5 @@
             </div>
         </div>
     </div>
+    @include('users.partials.users-modal')
 </x-app-layout>

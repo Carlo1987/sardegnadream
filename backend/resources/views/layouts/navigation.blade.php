@@ -38,7 +38,7 @@
                             {{ __('profile.profile') }}
                         </x-dropdown-link>
 
-                        @if(Auth::user()->role_id == App\Enums\RolesEnum::ADMIN->value)
+                        @if(Auth::user()->role_id === App\Enums\RolesEnum::ADMIN->value)
                         <x-dropdown-link :href="route('users.show')">
                             {{ __('profile.manageUsers') }}
                         </x-dropdown-link>
@@ -89,6 +89,12 @@
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('profile.profile') }}
                 </x-responsive-nav-link>
+
+                @if(Auth::user()->role_id === App\Enums\RolesEnum::ADMIN->value)
+                <x-responsive-nav-link :href="route('users.show')">
+                    {{ __('profile.manageUsers') }}
+                </x-responsive-nav-link>
+                @endif
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">

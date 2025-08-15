@@ -21,7 +21,7 @@ Route::middleware('auth')->group(function () {
     //  Rotte gestione utenti
     Route::middleware('isAdmin')->group(function () {
         Route::get('/users', [UserController::class, 'show'])->name('users.show');
-        Route::post('/users', [UserController::class, 'update'])->name('users.upsert');
+        Route::post('/users/{id?}', [UserController::class, 'upsert'])->name('users.upsert');
         Route::delete('/users', [UserController::class, 'destroy'])->name('users.destroy');
     });
 

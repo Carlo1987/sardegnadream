@@ -11,4 +11,8 @@ return [
     'register' => 'Register',
     'cancel' => 'Cancel',
     'actions' => 'Actions',
+    'user' => 'user',
+    'info' => 'Click for info',
+    'add' => 'Add',
+    'edit' => 'Edit',
 ];

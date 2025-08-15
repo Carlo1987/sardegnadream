@@ -20,4 +20,18 @@ return [
     'addUser' => 'Add User',
     'editUser' => 'Edit User',
     'deleteUser' => 'Delete User',
+    'addUser_alert' => 'A random password will be created for this user and sent to them via email.',
+    'editUser_alert' => 'Changing the role of this user will also change their permissions.',
+    'deleteUser_alert' => 'If you proceed, this user will be permanently deleted.',
+
+    'roles' => 'Roles Available',
+    'role_admin' => 'Administrator',
+    'role_manager' => 'Manager',
+    'role_manageSystem' => 'Has full control of the system.',
+    'role_manageSettings' => 'Can modify the general site settings.',
+    'role_manageBookings' => 'Manages bookings, rates, payments, reviews.',
+
+    'newUser_data' => 'Registration User',
+    'newUser_textUser' => 'You have been registered on the site ' . env('APP_NAME') . ' as a new user with the role of :role. Access using these credentials, after the first access you will be able to change the password from your profile.',
+    'newUser_textAdmin' => 'You have added a new user with the role of :role. The user will receive an email with their credentials. Below are the credentials for the first access for the user added.',
 ];

@@ -20,4 +20,19 @@ return [
     'addUser' => 'Aggiungi utente',
     'editUser' => 'Modifica utente',
     'deleteUser' => 'Elimina utente',
+    'addUser_alert' => 'Verrà creata una password casuale per questo utente e gli verrà recapitata via email.',
+    'editUser_alert' => 'Modificando il ruolo di questo utente cambiaranno anche le sue autorizzazioni.',
+    'deleteUser_alert' => 'Se procedi, questo utente verrà eliminato definitivamente.',
+    'adminNoDeleteble' => 'Un amministratore non può essere eliminato.',
+
+    'roles' => 'Ruoli disponibili',
+    'role_admin' => 'Amministratore',
+    'role_manager' => 'Gestore',
+    'role_manageSystem' => 'Ha il controllo completo del sistema.',
+    'role_manageSettings' => 'Può modificare le impostazioni generali del sito.',
+    'role_manageBookings' => 'Gestisce prenotazioni, tariffe, pagamenti, recensioni.',
+
+    'newUser_data' => 'Registrazione utente',
+    'newUser_textUser' => 'Sei stato registrato sul sito ' . env('APP_NAME') . ' come nuovo utente con il ruolo di :role. Accedi usando queste credenziali, dopo il primo accesso potrai cambiare password dal tuo profilo.',
+    'newUser_textAdmin' => 'Hai aggiunto un nuovo utente con ruolo :role. L\'utente ha ricevuto un\'email con le proprie credenziali. Di seguito le credenziali del primo accesso per l\'utente aggiunto.',
 ];

@@ -10,22 +10,41 @@ enum RolesEnum: int
     public function name(): string
     {
         return match($this) {
-            self::ADMIN => 'Amministratore',
-            self::MANAGER => 'Gestore',
+            self::ADMIN => __('profile.role_admin'),
+            self::MANAGER => __('profile.role_manager'),
         };
     }
 
-    public function description(): string
+    public function description(): Array
     {
         return match($this) {
             self::ADMIN => array(
-                'Ha il controllo completo del sistema.',
-                'Può modificare le impostazioni generali del sito.',
-                'Gestisce prenotazioni, tariffe, pagamenti, recensioni.',
+                __('profile.role_manageSystem'),
+                __('profile.role_manageSettings'),
+                __('profile.role_manageBookings'),
             ),
             self::MANAGER => array(
-                'Gestisce prenotazioni, tariffe, pagamenti, recensioni.',
+                __('profile.role_manageBookings'),
             )
         };
+    }
+
+    public static function getDatasSelect(): array
+    {
+        return collect(self::cases())->mapWithKeys(function (self $role) {
+            return [ $role->value => $role->name() ];
+        })->toArray();
+    }
+
+    public static function getAllDatas(): array
+    {
+        return collect(self::cases())->mapWithKeys(function (self $role) {
+            return [
+                $role->value => [
+                    'name' => $role->name(),
+                    'description' => $role->description(),
+                ],
+            ];
+        })->toArray();
     }
 }

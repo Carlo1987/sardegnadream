@@ -20,7 +20,8 @@
             }
             #content{
                 width: 100%;
-                padding: 10px;
+                padding-left: 10px;
+                padding-right: 10px;
             }
             .theme{
                 background-color:rgb(118, 189, 228);

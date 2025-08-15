@@ -20,16 +20,53 @@
         <tr>
             <td class="px-6 py-4 whitespace-nowrap">{{ $user->name }}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ $user->email }}</td>
-            <td class="px-6 py-4 whitespace-nowrap">{{ $user->role()->name }}</td>
-            <td class="px-6 py-4 flex justify-center gap-2">
-                <div class="inline-block p-2 bg-theme text-center rounded cursor-pointer">
-                    @include('components.svg.update-icon')
-                </div>
-                <div class="inline-block p-2 bg-red-300 text-center rounded cursor-pointer">
-                   @include('components.svg.delete-icon')
-                </div>  
+            <td class="px-6 py-4 whitespace-nowrap">{{ $user->role()->name() }}</td>
+            <td class="px-6 py-4 flex justify-start gap-2">
+                <x-btn-edit 
+                    :object="$user" 
+                    :dataFields="['id', 'name', 'email','role_id']" 
+                    modal="upsert-user-modal" 
+                />
+                <x-btn-delete 
+                    :role_id="$user->role_id"
+                    :object="$user" 
+                    :dataFields="['id', 'name']" 
+                    modal="delete-user-modal" 
+                />
             </td>
         </tr>
         @endforeach
     </tbody>
 </table>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function (){
+
+        const dataToEdit = {
+            texts : {
+                title : "{{  __('profile.editUser') }}",
+                description : "{{ __('profile.editUser_alert') }}",
+            },
+            data : [
+                { data : 'id' },
+                { data : 'name' },
+                { data : 'email' },
+                { data : 'role_id' },
+            ],
+        }
+
+        const dataToDelete = {
+            texts : {
+                title : "{{  __('profile.deleteUser') }}",
+                description : "{{ __('profile.deleteUser_alert') }}",
+            },
+            data : [
+                { data : 'id', input : 'delete-id' },
+                { data : 'name', input : 'delete-name' },
+            ]
+        }
+
+        setModalEditItem(dataToEdit);
+        setModalDeleteItem(dataToDelete);
+    });
+</script>

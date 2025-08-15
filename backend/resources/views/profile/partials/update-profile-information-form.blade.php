@@ -3,11 +3,18 @@
         <h2 class="text-lg font-medium text-gray-900">
             {{ __('profile.profile_info') }}
         </h2>
+
+        <p class="mt-3 text-md text-gray-600 flex align-end gap-2">
+            <strong> {{  __('profile.role') }}:</strong> {{ $user->role()->name() }}
+            <x-roles-info :roles="$roles"/>
+        </p>
     </header>
 
-<!--     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
+    <!--    
+     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
         @csrf
-    </form> -->
+    </form> 
+    -->
 
     <form method="POST" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
         @csrf
@@ -23,7 +30,7 @@
             <x-input-label for="email" :value="__('profile.email')" />
             <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
-
+            <!-- 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                 <div>
                     <p class="text-sm mt-2 text-gray-800">
@@ -40,7 +47,8 @@
                         </p>
                     @endif
                 </div>
-            @endif
+            @endif 
+            -->
         </div>
 
         <div class="flex items-center gap-4">

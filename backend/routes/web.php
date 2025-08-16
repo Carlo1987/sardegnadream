@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,9 +22,26 @@ Route::middleware('auth')->group(function () {
     //  Rotte gestione utenti
     Route::middleware('isAdmin')->group(function () {
         Route::get('/users', [UserController::class, 'show'])->name('users.show');
-        Route::post('/users/{id?}', [UserController::class, 'upsert'])->name('users.upsert');
+        Route::post('/users', [UserController::class, 'upsert'])->name('users.upsert');
         Route::delete('/users', [UserController::class, 'destroy'])->name('users.destroy');
     });
+
+    //  Rotte case
+    Route::get('/homes', [HomeController::class, 'show'])->name('homes.show');
+    
+    Route::get('/home/step1/{id?}', [HomeController::class, 'step1'])->name('home.step1');
+    Route::post('/homes/step1', [HomeController::class, 'postStep1'])->name('home.postStep1');
+
+    Route::get('/home/step2/{id?}', [HomeController::class, 'step2'])->name('home.step2');
+    Route::post('/homes/step2', [HomeController::class, 'postStep2'])->name('home.postStep2');
+
+    Route::get('/home/step3/{id?}', [HomeController::class, 'step3'])->name('home.step3');
+    Route::post('/homes/step3', [HomeController::class, 'postStep3'])->name('home.postStep3');
+
+    Route::get('/home/step4/{id?}', [HomeController::class, 'step4'])->name('home.step4');
+    Route::post('/homes', [HomeController::class, 'upsert'])->name('homes.upsert');
+   
+    Route::delete('/homes', [HomeController::class, 'destroy'])->name('homes.destroy');
 
 });
 

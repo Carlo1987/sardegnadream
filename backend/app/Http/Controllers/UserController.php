@@ -67,7 +67,6 @@ class UserController extends Controller
         return Redirect::route('users.show');
     }
 
-
     public function destroy(Request $request)
     {
         $user = User::find($request->id);

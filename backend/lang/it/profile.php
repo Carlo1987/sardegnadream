@@ -28,9 +28,9 @@ return [
     'roles' => 'Ruoli disponibili',
     'role_admin' => 'Amministratore',
     'role_manager' => 'Gestore',
-    'role_manageSystem' => 'Ha il controllo completo del sistema.',
-    'role_manageSettings' => 'Può modificare le impostazioni generali del sito.',
-    'role_manageBookings' => 'Gestisce prenotazioni, tariffe, pagamenti, recensioni.',
+    'role_manageSystem' => 'Gestisce tutti gli utenti.',
+    'role_manageSettings' => 'Gestisce parametri e supplementi.',
+    'role_manageBookings' => 'Gestisce prenotazioni, case e recensioni.',
 
     'newUser_data' => 'Registrazione utente',
     'newUser_textUser' => 'Sei stato registrato sul sito ' . env('APP_NAME') . ' come nuovo utente con il ruolo di :role. Accedi usando queste credenziali, dopo il primo accesso potrai cambiare password dal tuo profilo.',

@@ -9,16 +9,17 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+                    
                     <div class="flex justify-end mb-4">
                         <x-btn-add label="{{ __('profile.addUser') }}" modal="upsert-user-modal" />
                     </div>
              
                    @if($users->count() > 0)
-                    @include('users.partials.users-table')
+                        @include('users.partials.users-table')
                    @else
-                    <div class="w-64 m-auto bg-gray-100 p-2 border border-grey-400 text-center rounded">
-                    {{ __('profile.noUsers') }}
-                    </div>
+                        <x-no-items>
+                            {{ __('profile.noUsers') }}
+                        </x-no-items>
                    @endif
                 </div>
             </div>

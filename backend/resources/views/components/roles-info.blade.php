@@ -17,12 +17,12 @@
     </h2>
 
     @foreach ($roles as $role)
-        <div class="mt-6 p-6 flex align-start justify-between">
-            <p class="text-lg text-gray-600 font-bold">
+        <div class="mt-6 p-6 flex align-start">
+            <p class="flex-1 text-lg text-gray-600 font-bold">
                 {{ $role['name'] }}:
             </p>
 
-            <div class="flex flex-col gap-2">
+            <div class="flex flex-col flex-4 gap-2">
                 @foreach($role['description'] as $key => $row)
                     <p class="text-md text-gray-600">
                        {{ $key + 1 }} -  {{ $row }}

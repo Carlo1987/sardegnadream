@@ -15,4 +15,6 @@ return [
     'info' => 'Clicca per info',
     'add' => 'Aggiungi',
     'edit' => 'Modifica',
+    'back' => 'Indietro',
+    'next' => 'Avanti',
 ];

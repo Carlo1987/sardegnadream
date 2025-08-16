@@ -27,9 +27,10 @@ return [
     'roles' => 'Roles Available',
     'role_admin' => 'Administrator',
     'role_manager' => 'Manager',
-    'role_manageSystem' => 'Has full control of the system.',
-    'role_manageSettings' => 'Can modify the general site settings.',
-    'role_manageBookings' => 'Manages bookings, rates, payments, reviews.',
+    'role_manageSystem' => 'Manages all users.',
+    'role_manageSettings' => 'Manages parameters and extras.',
+    'role_manageBookings' => 'Manages bookings, houses, and reviews.',
+
 
     'newUser_data' => 'Registration User',
     'newUser_textUser' => 'You have been registered on the site ' . env('APP_NAME') . ' as a new user with the role of :role. Access using these credentials, after the first access you will be able to change the password from your profile.',

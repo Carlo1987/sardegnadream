@@ -11,7 +11,7 @@ class Step2Request extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,15 @@ class Step2Request extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'id' => ['nullable', 'integer'],
+            'meters' => ['required', 'numeric'],
+            'rooms' => ['required', 'integer'],
+            'bathrooms' => ['required', 'integer'],
+            'single_beds' => ['required', 'integer'],
+            'double_beds' => ['required', 'integer'],
+            'bunk_beds' => ['required', 'integer'],
+            'wall_beds' => ['required', 'integer'],
+            'sofa_beds' => ['required', 'integer'],
         ];
     }
 }

@@ -22,9 +22,9 @@
                                 <x-text-input
                                     id="meters"
                                     name="meters"
-                                    type="text"
+                                    type="number"
                                     class="block w-full"
-                                    value="{{ $home_data['meters'] ?? '' }}"
+                                    value="{{ $home_data['meters'] ?? 0 }}"
                                 />
 
                                 <x-input-error class="mt-2" :messages="$errors->get('meters')" />
@@ -35,9 +35,9 @@
                                 <x-text-input
                                     id="rooms"
                                     name="rooms"
-                                    type="text"
+                                    type="number"
                                     class="block w-full"
-                                    value="{{ $home_data['rooms'] ?? '' }}"
+                                    value="{{ $home_data['rooms'] ?? 0 }}"
                                 />
 
                                 <x-input-error class="mt-2" :messages="$errors->get('rooms')" />
@@ -48,9 +48,9 @@
                                 <x-text-input
                                     id="bathrooms"
                                     name="bathrooms"
-                                    type="text"
+                                    type="number"
                                     class="block w-full"
-                                    value="{{ $home_data['bathrooms'] ?? '' }}"
+                                    value="{{ $home_data['bathrooms'] ?? 0 }}"
                                 />
 
                                 <x-input-error class="mt-2" :messages="$errors->get('bathrooms')" />
@@ -61,9 +61,9 @@
                                 <x-text-input
                                     id="single_beds"
                                     name="single_beds"
-                                    type="text"
+                                    type="number"
                                     class="mt-1 block w-full"
-                                    value="{{ $home_data['single_beds'] ?? '' }}"
+                                    value="{{ $home_data['single_beds'] ?? 0 }}"
                                 />
 
                                 <x-input-error class="mt-2" :messages="$errors->get('single_beds')" />
@@ -78,9 +78,9 @@
                                 <x-text-input
                                     id="double_beds"
                                     name="double_beds"
-                                    type="text"
+                                    type="number"
                                     class="mt-1 block w-full"
-                                    value="{{ $home_data['double_beds'] ?? '' }}"
+                                    value="{{ $home_data['double_beds'] ?? 0 }}"
                                 />
 
                                 <x-input-error class="mt-2" :messages="$errors->get('double_beds')" />
@@ -91,9 +91,9 @@
                                 <x-text-input
                                     id="bunk_beds"
                                     name="bunk_beds"
-                                    type="text"
+                                    type="number"
                                     class="mt-1 block w-full"
-                                    value="{{ $home_data['bunk_beds'] ?? '' }}"
+                                    value="{{ $home_data['bunk_beds'] ?? 0 }}"
                                 />
 
                                 <x-input-error class="mt-2" :messages="$errors->get('bunk_beds')" />
@@ -104,9 +104,9 @@
                                 <x-text-input
                                     id="wall_beds"
                                     name="wall_beds"
-                                    type="text"
+                                    type="number"
                                     class="mt-1 block w-full"
-                                    value="{{ $home_data['wall_beds'] ?? '' }}"
+                                    value="{{ $home_data['wall_beds'] ?? 0 }}"
                                 />
 
                                 <x-input-error class="mt-2" :messages="$errors->get('wall_beds')" />
@@ -117,16 +117,16 @@
                                 <x-text-input
                                     id="sofa_beds"
                                     name="sofa_beds"
-                                    type="text"
+                                    type="number"
                                     class="mt-1 block w-full"
-                                    value="{{ $home_data['sofa_beds'] ?? '' }}"
+                                    value="{{ $home_data['sofa_beds'] ?? 0 }}"
                                 />
 
                                 <x-input-error class="mt-2" :messages="$errors->get('sofa_beds')" />
                             </div>
                         </div>
             
-                        <x-btns-stepper />
+                        <x-btns-stepper  back_href="{{ route('home.step1') }}" />
 
                     </form>
 

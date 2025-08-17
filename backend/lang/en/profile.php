@@ -27,9 +27,10 @@ return [
     'roles' => 'Roles Available',
     'role_admin' => 'Administrator',
     'role_manager' => 'Manager',
-    'role_manageSystem' => 'Manages all users.',
+    'role_manageUsers' => 'Manages all users.',
     'role_manageSettings' => 'Manages parameters and extras.',
-    'role_manageBookings' => 'Manages bookings, houses, and reviews.',
+    'role_manageHomes' => 'Manages homes and services.',
+    'role_manageBookings' => 'Manages bookings and reviews.',
 
 
     'newUser_data' => 'Registration User',

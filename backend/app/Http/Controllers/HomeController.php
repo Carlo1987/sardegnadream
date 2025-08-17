@@ -11,6 +11,8 @@ use App\Http\Requests\Home\Step3Request;
 use App\Http\Requests\Home\Step4Request;
 
 use App\Models\Home;
+use App\Models\HomeService;
+use App\Models\Service;
 
 class HomeController extends Controller
 {
@@ -46,42 +48,83 @@ class HomeController extends Controller
             session(['home_session' => $home->toArray()]);
         }
         
-        return view('homes.steps.step1',[
-            'steps' => $this->steps_home,
-            'states' => $this->getStates(),
-        ]);
+        $states = ['states' => $this->getStates()];
+        return $this->viewStep('step1', $states);
     }
 
     public function postStep1(Step1Request $request)
     {
-        $homeData = session('home_session', []);
-        
-        $homeData = array_merge($homeData, $request->except('_token'));
-        session(['home_session' => $homeData]);
+        $this->setHomeSession($request);
         return redirect()->route('home.step2');
     }
 
     public function step2($id = null)
     {
-        return view('homes.steps.step2',[
-            'steps' => $this->steps_home,
-        ]);
+        return $this->viewStep('step2');
     }
 
     public function postStep2(Step2Request $request)
-    {}
+    {
+        $this->setHomeSession($request);
+        return redirect()->route('home.step3');
+    }
 
     public function step3($id = null)
-    {}
+    {
+        $home = session('home_session');
+        $home_services = [ 'home_services' => $this->getHomeServices($home['id']) ];
+        return $this->viewStep('step3', $home_services);
+    }
 
-    public function postStep3(Step3Request $request)
-    {}
+    private function getHomeServices($home_id)
+    {
+        $services = Service::all();
+        $query_homeServices = HomeService::where('home_id', $home_id)->first();
+        $array_homeServices = [];
+        $home_services = [];
+
+        if($query_homeServices && $query_homeServices->count() > 0) {
+            $array_homeServices = explode('-', $query_homeServices->services);
+        }
+
+        $haveServices = count($array_homeServices) > 0;
+        foreach($services as $service) {
+            $category = $service->service_category->name;
+            $service_value = $haveServices ? in_array($service->id, $array_homeServices) : false;
+
+            $home_services[$category][$service->id] = [
+                'name' => $service->name,
+                'value' => $service_value,
+            ];  
+        }
+
+        return $home_services;
+    }
+
+    public function postStep3(Request $request)   #Step3Request
+    {
+        dd($request->all());
+    }
 
     public function step4($id = null)
     {}
 
     public function upsert(Step4Request $request) 
     {}
+
+    private function viewStep($view, $itemsPlus = null)
+    {
+        $items = [ 'steps' => $this->steps_home ];
+        if($itemsPlus) $items = array_merge($items, $itemsPlus);
+        return view("homes.steps.$view", $items);
+    }
+
+    private function setHomeSession($request)
+    {
+        $homeData = session('home_session', []);
+        $homeData = array_merge($homeData, $request->except('_token'));
+        session(['home_session' => $homeData]);
+    }
 
 
     public function destroy(Request $request) 

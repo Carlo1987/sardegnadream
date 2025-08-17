@@ -23,12 +23,12 @@ return [
     'cap' => 'CAP',
 
     'meters' => 'Metri quadri',
-    'rooms' => 'Stanze',
-    'bathrooms' => 'Bagni',
-    'single_beds' => 'Letti singoli',
-    'double_beds' => 'Letti doppi',
-    'bunk_beds' => 'Letti a castello',
-    'wall_beds' => 'Armadi-letto',
-    'sofa_beds' => 'Divani-letto',
+    'rooms' => 'N° stanze',
+    'bathrooms' => 'N° bagni',
+    'single_beds' => 'N° letti singoli',
+    'double_beds' => 'N° letti doppi',
+    'bunk_beds' => 'N° letti a castello',
+    'wall_beds' => 'N° armadi-letto',
+    'sofa_beds' => 'N° divani-letto',
 
 ];

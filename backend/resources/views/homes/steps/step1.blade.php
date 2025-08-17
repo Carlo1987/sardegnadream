@@ -124,7 +124,7 @@
                             <x-input-error class="mt-2" :messages="$errors->get('description')" />
                         </div>
 
-                        <x-btns-stepper />
+                        <x-btns-stepper  back_href="{{ route('homes.show') }}" />
                     </form>
 
                 </div>

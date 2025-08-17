@@ -1,9 +1,10 @@
 @props([
-    'action' => null
+    'action' => null,
+    'back_href' => null
     ])
 
 <div class="btn-close-modal mt-6 flex justify-end">
-    <x-btn-back>
+    <x-btn-back href="{{ $back_href }}">
         {{ __('common.back') }}
     </x-btn-back>
 

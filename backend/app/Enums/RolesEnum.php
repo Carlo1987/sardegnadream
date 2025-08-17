@@ -17,15 +17,23 @@ enum RolesEnum: int
 
     public function description(): Array
     {
+        $manage_users = __('profile.role_manageUsers');
+        $manage_settings = __('profile.role_manageSettings');
+        $manage_homes = __('profile.role_manageHomes');
+        $manage_bookings = __('profile.role_manageBookings');
+
         return match($this) {
             self::ADMIN => array(
-                __('profile.role_manageSystem'),
-                __('profile.role_manageSettings'),
-                __('profile.role_manageBookings'),
+                $manage_users,
+                $manage_settings,
+                $manage_homes,
+                $manage_bookings,
             ),
             self::MANAGER => array(
-                __('profile.role_manageBookings'),
-            )
+                $manage_settings,
+                $manage_homes,
+                $manage_bookings,
+            ),
         };
     }
 

@@ -22,6 +22,7 @@ class Step1Request extends FormRequest
     public function rules(): array
     {
         return [
+            'id' => ['nullable', 'integer'],
             'name' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
             'province' => ['required', 'string', 'max:30'],

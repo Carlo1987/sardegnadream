@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use App\Models\HomeService;
+
 trait HomeHelper
 {
     public function getStates()

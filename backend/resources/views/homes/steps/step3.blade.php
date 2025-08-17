@@ -17,20 +17,22 @@
 
                         <input type="hidden" name="id" id="id" value="{{ $home_data['id'] ?? null }}">
 
-                        @foreach($home_services as $category => $services)
-                        <div class="mb-4">
-                            <h3>{{ $category }}</h3>
-                            <ul>
-                                @foreach($services as $key => $service)
-                                    <li> 
-                                        <x-checkbox  value="{{ $key }}" isChecked="{{ $service['value'] }}">
-                                            {{ $service['name'] }}
-                                        </x-checkbox>
-                                    </li>
-                                @endforeach
-                            </ul>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                            @foreach($home_services as $category => $services)
+                            <div class="mb-4 col-span-1 text-center">
+                                <h3 class="text-lg font-bold mb-2">{{ $category }}</h3>
+                                <ul>
+                                    @foreach($services as $key => $service)
+                                        <li> 
+                                            <x-checkbox  value="{{ $key }}" isChecked="{{ $service['value'] }}" image="{{ $service['image'] }}">
+                                                {{ $service['name'] }}
+                                            </x-checkbox>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endforeach
                         </div>
-                        @endforeach
 
                         <x-btns-stepper back_href="{{ route('home.step2') }}"/>
                     </form>

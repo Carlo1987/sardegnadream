@@ -94,6 +94,7 @@ class HomeController extends Controller
 
             $home_services[$category][$service->id] = [
                 'name' => $service->name,
+                'image' => $service->image,
                 'value' => $service_value,
             ];  
         }

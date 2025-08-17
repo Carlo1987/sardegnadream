@@ -109,12 +109,12 @@ class ServiceSeeder extends Seeder
                     'image' => 'balcony.png',
                 ],
                 [
-                    'name' => 'Arredamento esterno',
+                    'name' => 'Arredam. esterno',
                     'image' => 'outdoor_furniture.png',
                 ],
                 [
                     'name' => 'Zona pranzo',
-                    'image' => 'dinning_area.png',
+                    'image' => 'dining_area.png',
                 ],
                 [
                     'name' => 'Parcheggio',
@@ -141,7 +141,7 @@ class ServiceSeeder extends Seeder
                     'image' => 'fire_protection.png',
                 ],
                 [
-                    'name' => 'Rilev. monossido carbonio',
+                    'name' => 'Monossido carbonio',
                     'image' => 'carbon_monoxide.png',
                 ],
             ),

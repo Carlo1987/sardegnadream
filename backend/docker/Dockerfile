@@ -24,6 +24,10 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Copia i file del progetto Laravel
 COPY . /var/www
 
+# Copia configurazione php.ini per dimensione files
+COPY ./docker/php.ini /usr/local/etc/php/conf.d/uploads.ini
+
+
 # Copia configurazione Nginx
 COPY ./docker/nginx.conf /etc/nginx/sites-available/default
 

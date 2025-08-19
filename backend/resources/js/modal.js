@@ -52,27 +52,7 @@ function setChecks(dataValue){
     })
 }
 
-function getFile() {
-    const fileInput = document.querySelector('#file');
-    fileInput.addEventListener('change', function() {
-        let file = fileInput.files[0];
-        changeStyleBtnImage(file.name);
-    });
-}
 
-//  Metodo per cambiare stile bottone di selezione file
-function changeStyleBtnImage(name = null){
-    const btnImage = document.querySelector('#btnImage'); 
- 
-    if(name){
-        btnImage.className = "btn btn-success";
-        btnImage.innerHTML = name;
-    
-    }else{
-        btnImage.className = "btn btn-secondary";
-        btnImage.innerHTML = 'Selezionare file';
-    }
-}
 
 //  Metodo per settare il titolo di una modal
 function setModalTexts(className, texts){
@@ -92,4 +72,4 @@ function closeModal(){
     }
 }
 
-export { setModalAddItem, setModalEditItem, setModalDeleteItem, getFile, closeModal }
+export { setModalAddItem, setModalEditItem, setModalDeleteItem, closeModal }

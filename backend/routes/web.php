@@ -32,13 +32,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/home/step1/{id?}', [HomeController::class, 'step1'])->name('home.step1');
     Route::post('/homes/step1', [HomeController::class, 'postStep1'])->name('home.postStep1');
 
-    Route::get('/home/step2/{id?}', [HomeController::class, 'step2'])->name('home.step2');
+    Route::get('/home/step2', [HomeController::class, 'step2'])->name('home.step2');
     Route::post('/homes/step2', [HomeController::class, 'postStep2'])->name('home.postStep2');
 
-    Route::get('/home/step3/{id?}', [HomeController::class, 'step3'])->name('home.step3');
+    Route::get('/home/step3', [HomeController::class, 'step3'])->name('home.step3');
     Route::post('/homes/step3', [HomeController::class, 'postStep3'])->name('home.postStep3');
 
-    Route::get('/home/step4/{id?}', [HomeController::class, 'step4'])->name('home.step4');
+    Route::get('/home/step4', [HomeController::class, 'step4'])->name('home.step4');
+    Route::post('/homes/step4', [HomeController::class, 'postStep4'])->name('home.postStep4');
+
+     Route::get('/home/step5', [HomeController::class, 'step5'])->name('home.step5');
     Route::post('/homes', [HomeController::class, 'upsert'])->name('homes.upsert');
    
     Route::delete('/homes', [HomeController::class, 'destroy'])->name('homes.destroy');

@@ -17,4 +17,7 @@ return [
     'edit' => 'Modifica',
     'back' => 'Indietro',
     'next' => 'Avanti',
+    'select_image' => 'Seleziona immagine',
+    'select_images' => 'Seleziona immagini',
+    'select_videos' => 'Seleziona video',
 ];

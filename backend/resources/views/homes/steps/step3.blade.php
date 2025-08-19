@@ -1,7 +1,5 @@
 @php
     $home_data = session('home_session');
-
-
 @endphp
 
 <x-app-layout>

@@ -33,6 +33,6 @@ return [
 
     'select_avatar' => 'Seleziona immagine di copertina',
     'select_images' => 'Scegli immagini (minimo 5)',
-    'select_videos' => 'Scegli uno o più video (non obbligatorio)',
+    'select_videos' => 'Scegli uno o più video (non obbligatorio - max 3)',
 
 ];

@@ -11,7 +11,7 @@
         <div class="relative flex-1 flex items-center md:justify-center">
             <div class="z-10 flex items-center justify-center w-auto p-3
                         rounded-full font-semibold
-                        {{ $currentStep == $index + 1 ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-700' }}">
+                        {{ $currentStep == $index + 1 ? 'bg-theme' : 'bg-gray-200 text-gray-700' }}">
                 {{ $step }}
             </div>
         </div>

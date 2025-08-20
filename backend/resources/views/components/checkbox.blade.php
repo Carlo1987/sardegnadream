@@ -12,6 +12,6 @@
         </label>
     </div>
     <div class="w-1/3 justify-start items-center">
-        <input type="checkbox" name="check_services[]" value="{{ $value }}" @checked($isChecked)>
+        <input type="checkbox" name="services[]" value="{{ $value }}" @checked($isChecked)>
     </div>
 </div>

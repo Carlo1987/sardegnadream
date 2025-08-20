@@ -7,8 +7,8 @@ use App\Helpers\HomeHelper;
 
 use App\Http\Requests\Home\Step1Request;
 use App\Http\Requests\Home\Step2Request;
-use App\Http\Requests\Home\Step3Request;
 use App\Http\Requests\Home\Step4Request;
+use App\Http\Requests\Home\Step5Request;
 
 use App\Models\Home;
 use App\Models\HomeService;
@@ -25,8 +25,8 @@ class HomeController extends Controller
             __('home.home_data'),
             __('home.home_rooms'),
             __('home.home_services'),
-            __('home.home_files'),
             __('home.home_calendary'),
+            __('home.home_files'),
         ];
     }
 
@@ -78,13 +78,13 @@ class HomeController extends Controller
         $array_homeServices = [];
         $home_services = [];
 
-        if(!$home['check_services']){
+        if(!isset($home['services'])){
             $query_homeServices = HomeService::where('home_id', $home['id'])->first();
             if($query_homeServices && $query_homeServices->count() > 0) {
                 $array_homeServices = explode('-', $query_homeServices->services);
             }
         }else{
-            $array_homeServices = $home['check_services'];
+            $array_homeServices = $home['services'];
         }
         
         $services = Service::all();
@@ -105,7 +105,7 @@ class HomeController extends Controller
 
     public function postStep3(Request $request)   
     {
-        if($request->check_services){
+        if($request->services){
             $this->setHomeSession($request);
         }
         return redirect()->route('home.step4');
@@ -113,7 +113,14 @@ class HomeController extends Controller
 
     public function step4()
     {
-        return $this->viewStep('step4');
+        $currentYear = now()->year;
+        $years_array = [];
+        for($y = 0; $y < 5; $y++){
+            $year = $currentYear + $y;
+            $years_array[$year] = $year;
+        }
+        $years = [ 'years' =>  $years_array ];
+        return $this->viewStep('step4', $years);
     }
 
     public function postStep4(Step4Request $request)

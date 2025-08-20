@@ -31,6 +31,8 @@ return [
     'wall_beds' => 'N° armadi-letto',
     'sofa_beds' => 'N° divani-letto',
 
+    'select_year' => 'Seleziona anno',
+
     'select_avatar' => 'Seleziona immagine di copertina',
     'select_images' => 'Scegli immagini (minimo 5)',
     'select_videos' => 'Scegli uno o più video (non obbligatorio - max 3)',

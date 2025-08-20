@@ -4,14 +4,14 @@ namespace App\Http\Requests\Home;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class Step3Request extends FormRequest
+class Step5Request extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**

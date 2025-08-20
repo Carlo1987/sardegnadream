@@ -11,3 +11,6 @@ window.closeModal = closeModal;
 
 import { setStyleBtnFile } from './button';
 window.setStyleBtnFile = setStyleBtnFile;
+
+import FullCalendar from './FullCalendar';
+FullCalendar();

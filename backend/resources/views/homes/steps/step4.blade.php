@@ -49,6 +49,7 @@
         </div>
     </div>
 </x-app-layout>
+@include('homes.partials.modal-upsert-price')
 
 
 <script>

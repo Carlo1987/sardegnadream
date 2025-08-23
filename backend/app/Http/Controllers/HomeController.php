@@ -21,6 +21,11 @@ class HomeController extends Controller
     private $steps_home; 
 
     public function __construct() {
+       $this->setStepsHome();
+    }
+
+    private function setStepsHome() : void
+    {
         $this->steps_home = [
             __('home.home_data'),
             __('home.home_rooms'),
@@ -113,17 +118,39 @@ class HomeController extends Controller
 
     public function step4()
     {
-        $currentYear = now()->year;
-        $years_array = [];
-        for($y = 0; $y < 5; $y++){
-            $year = $currentYear + $y;
-            $years_array[$year] = $year;
-        }
-        $years = [ 'years' =>  $years_array ];
-        return $this->viewStep('step4', $years);
+        $selectYearsMonths = [ 
+            'years' =>  $this->setYeasToSelect(),
+            'months' => $this->setMonthsToSelect(),
+        ];
+        return $this->viewStep('step4', $selectYearsMonths);
     }
 
-    public function postStep4(Step4Request $request)
+    private function setYeasToSelect()
+    {
+        $currentYear = now()->year;
+        $yearsToSelect = [];
+        for($y = 0; $y < 5; $y++){
+            $year = $currentYear + $y;
+            $yearsToSelect[$year] = $year;
+        }
+        return $yearsToSelect;
+    }
+
+    private function setMonthsToSelect()
+    {
+        $months = __('common.months');
+        $monthsToSelect = [];
+        foreach($months as $key => $month) {
+            $index = $key + 1;
+            if($index < 10){
+                $index = '0'.$index;
+            }
+            $monthsToSelect[$index] = $month;
+        }
+        return $monthsToSelect;
+    }
+
+    public function postStep4(Request $request)
     {
         dd($request->all());
     }

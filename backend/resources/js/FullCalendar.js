@@ -2,192 +2,216 @@ import { Calendar } from '@fullcalendar/core';
 import itLocale from '@fullcalendar/core/locales/it';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import listPlugin from '@fullcalendar/list';
+import { mergePrices, removePriceRange } from "./FullCalendar-merge-prices";
 
 let startDate = null;
 let endDate = null;
+let home_prices = [];
 
 export default function FullCalendar() {
     document.addEventListener('DOMContentLoaded', function () {
         let calendarEl = document.getElementById('calendar');
         let calendar = new Calendar(calendarEl, {
-            plugins: [ dayGridPlugin, interactionPlugin, ],   // timeGridPlugin, listPlugin 
+            plugins: [dayGridPlugin, interactionPlugin],
             initialView: 'dayGridMonth',
             selectable: true,
             locale: itLocale,
             headerToolbar: {
-                left: 'prev,next',   // today
+                left: 'prev,next',
                 center: 'title',
-                right: ''   // 'dayGridMonth,timeGridWeek,listWeek'
+                right: ''
             },
             eventContent: function (arg) {
                 let price = arg.event.extendedProps.price;
                 if (price) {
-                return {
-                    html: `<div class="price-cell">
+                    return {
+                        html: `<div class="price-cell">
                                 <div style="display: inline-block">€${price}</div>
-                            </div>`,
-                };
+                               </div>`,
+                    };
                 }
-                return {}; // se non c'è prezzo, non mostra niente
+                return {};
             },
-           dateClick: function(info) {
-                console.log('info', info);
-                let existingEvent = calendar.getEvents().find(ev => {
-                    return info.date >= ev.start && info.date < ev.end;
-                });
+            dateClick: function (info) {
+                if (!startDate) {
+                    startDate = info.date;
+                } else {
+                    endDate = info.date;
 
-                if (existingEvent) {
-                    let groupId = existingEvent.groupId;
-                    let action = prompt("Scrivi:\n 1 = Modifica prezzo\n 2 = Cancella selezione");
-
-                    if (action === "2") {
-                        deletePrice(calendar, groupId);
-                    } else if (action === "1") {
-                        editPrice(calendar, groupId);
-                    }
-                    return;
+                    let from = startDate < endDate ? startDate : endDate;
+                    let to = startDate < endDate ? endDate : startDate;
+                    setDays({ calendar, from, to });
                 }
-
-                addPrice(calendar, info);
             }
         });
         calendar.render();
-        setYear(calendar);
-    })
+        setYearAndMonth(calendar);
+    });
 }
 
-function addPrice(calendar, info){
-    if (!startDate) {
-        startDate = info.date;
-    } else {
-        endDate = info.date;
+function setDays({ calendar, from, to }) {
+    const from_string = from.toLocaleDateString();
+    const to_string = to.toLocaleDateString();
 
-        let from = startDate < endDate ? startDate : endDate;
-        let to = startDate < endDate ? endDate : startDate;
+    let title_modal = from_string + " --- " + to_string;
+    if(from_string == to_string){
+        title_modal = from_string;
+    }
 
-       openModal({
-            title : "Inserisci prezzo dal " + from.toLocaleDateString() + " al " + to.toLocaleDateString(),
-            onConfirm: (price) => {
-                let groupId = "range-" + Date.now();
-                let current = new Date(from);
-
-                while (current <= to) {
-                    let day = new Date(current);
-
-                    calendar.addEvent({
-                        id: "day-" + day.toISOString(),
-                        groupId: groupId,
-                        start: day,
-                        end: new Date(day.getFullYear(), day.getMonth(), day.getDate() + 1),
-                        allDay: true,
-                        display: "background",
-                        classNames: ["selected-days"],
-                        extendedProps: { price: price },
-                    });
-
-                    current.setDate(current.getDate() + 1);
+    openModal({
+        title: title_modal,
+        onConfirm: (price) => {
+            calendar.getEvents().forEach(ev => {
+                if (ev.start >= from && ev.start <= to) {
+                    ev.remove();
                 }
+            });
+            let current = new Date(from);
+            while (current <= to) {
+                let day = new Date(current);
 
-                startDate = null;
-                endDate = null;
+                calendar.addEvent({
+                    id: "day-" + day.toISOString(),
+                    start: day,
+                    end: new Date(day.getFullYear(), day.getMonth(), day.getDate() + 1),
+                    allDay: true,
+                    display: "background",
+                    classNames: ["selected-days"],
+                    extendedProps: { price: price },
+                });
+
+                current.setDate(current.getDate() + 1);
             }
-        });
-    }
-}
 
-function editPrice(calendar, groupId){
-  let newPrice = prompt("Indicare il nuovo prezzo:");
-    if (newPrice) {
-        calendar.getEvents().forEach(ev => {
-            if (ev.groupId === groupId) {
-                ev.setExtendedProp("price", newPrice);
-            }
-        });
-    }
-}
+            home_prices = mergePrices(home_prices, {
+                from: from_string,
+                to: to_string,
+                price: parseFloat(price)
+            })
+            console.log(home_prices);
+            startDate = null;
+            endDate = null;
+        },
+        onClear: () => {
+            calendar.getEvents().forEach(ev => {
+                if (ev.start >= from && ev.start <= to) {
+                    ev.remove();
+                }
+            });
 
-function deletePrice(calendar, groupId){
-    calendar.getEvents().forEach(ev => {
-        if (ev.groupId === groupId) {
-            ev.remove();
+            home_prices = removePriceRange(home_prices, {
+                from: from_string,
+                to: to_string
+            });
+
+            startDate = null;
+            endDate = null;
         }
     });
 }
 
-
-function setYear(calendar){
+function setYearAndMonth(calendar){
     const yearSelect = document.getElementById('yearSelect');
-    yearSelect.addEventListener('change', function () {
-        let selectedYear = parseInt(this.value);
+    const monthSelect = document.getElementById('monthSelect');
 
-        let currentDate = calendar.getDate();
-        let currentMonth = currentDate.getMonth(); 
-        let currentDay = currentDate.getDate();
+    function gotoSelectedDate() {
+        let selectedYear = parseInt(yearSelect.value);
+        let selectedMonth = parseInt(monthSelect.value) - 1; 
+        let currentDay = calendar.getDate().getDate();
 
-        calendar.gotoDate(new Date(selectedYear, currentMonth, currentDay));
+        calendar.gotoDate(new Date(selectedYear, selectedMonth, currentDay));
+    }
+
+    yearSelect.addEventListener('change', gotoSelectedDate);
+    monthSelect.addEventListener('change', gotoSelectedDate);
+
+    const currentDate = calendar.getDate();
+    yearSelect.value = currentDate.getFullYear();
+    monthSelect.value = String(currentDate.getMonth() + 1).padStart(2, "0");
+}
+
+function openModal({ title, defaultValue = "", onConfirm, onClear }) {
+    const modal = document.getElementById("modalPrice");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalInput = document.getElementById("modalInput");
+    const btnConfirm = document.getElementById("modalConfirm");
+    const btnCancel = document.getElementById("modalCancel");
+    const btnClear = document.getElementById("modalClear");
+    const spinner = document.getElementById("loading");
+    setLoading(spinner, false);
+    setError(false);
+
+    modal.classList.remove("hidden");
+    modalTitle.innerHTML = title;
+    modalInput.value = defaultValue;
+
+    const newBtnConfirm = btnConfirm.cloneNode(true);
+    const newBtnCancel = btnCancel.cloneNode(true);
+    const newBtnClear = btnClear.cloneNode(true);
+    btnConfirm.parentNode.replaceChild(newBtnConfirm, btnConfirm);
+    btnCancel.parentNode.replaceChild(newBtnCancel, btnCancel);
+    btnClear.parentNode.replaceChild(newBtnClear, btnClear);
+
+    newBtnConfirm.addEventListener("click", () => {  
+    setLoading(spinner, true);
+    setError(false);
+    if (onConfirm){
+        const value = modalInput.value;
+        if(value <= 0){
+            setError(true);
+            setLoading(spinner, false);
+            return;
+        }
+        setTimeout(() => {
+            onConfirm(value);
+            modal.classList.add("hidden");
+        }, 50); 
+    } 
+});
+
+
+    newBtnClear.addEventListener("click", () => {    
+        setLoading(spinner, true); 
+        setError(false);
+        if (onClear){
+            setTimeout(() => {
+                onClear();
+                modal.classList.add("hidden")
+            }, 50); 
+        } 
+        startDate = null;
+        endDate = null;
+    });
+
+    newBtnCancel.addEventListener("click", () => {
+        modal.classList.add("hidden");
+        startDate = null;
+        endDate = null;
     });
 }
 
-
-
-function addPriceToCalendar(calendar) {
-    const button = document.getElementById('addPrice');
-    button.addEventListener('click', function (e) {
-        e.preventDefault();
-        const startDay = parseInt(document.getElementById('startDay').value);
-        const startMonth = parseInt(document.getElementById('startMonth').value);
-        const endDay = parseInt(document.getElementById('endDay').value);
-        const endMonth = parseInt(document.getElementById('endMonth').value);
-        const price = document.getElementById('priceInput').value;
-
-        // Per semplicità, prendiamo l'anno corrente
-        const currentYear = new Date().getFullYear();
-        let startDate = new Date(currentYear, startMonth, startDay);
-        let endDate = new Date(currentYear, endMonth, endDay);
-
-        // aggiungiamo l'evento al calendario
-        calendar.addEvent({
-            start: startDate,
-            end: endDate,
-            display: 'background',  // opzione per colore sfondo
-            title: `€${price}`,
-            backgroundColor: '#7dd3fc',  // azzurro
-            borderColor: '#38bdf8',
-        });
-    });
+function setLoading(spinner, isLoading){
+    if(isLoading){
+        if(spinner.classList.contains("hidden")){
+            spinner.classList.remove("hidden");
+        }
+    }else{
+        if(!spinner.classList.contains("hidden")){
+            spinner.classList.add("hidden");
+        }
+    }
 }
 
-
-function openModal({ title, defaultValue = "", onConfirm }) {
-  const modal = document.getElementById("upsertPriceModal");
-  const modalTitle = document.getElementById("modalTitle");
-  const modalInput = document.getElementById("modalInput");
-  const btnConfirm = document.getElementById("modalConfirm");
-  const btnCancel = document.getElementById("modalCancel");
-
-  modal.classList.remove("hidden");
-
-  modalTitle.innerHTML = title;
-  modalInput.value = defaultValue;
-
-  const newBtnConfirm = btnConfirm.cloneNode(true);
-  const newBtnCancel = btnCancel.cloneNode(true);
-  btnConfirm.parentNode.replaceChild(newBtnConfirm, btnConfirm);
-  btnCancel.parentNode.replaceChild(newBtnCancel, btnCancel);
-
-  newBtnConfirm.addEventListener("click", () => {
-    const value = modalInput.value;
-    modal.classList.add("hidden");
-    if (onConfirm) onConfirm(value);
-  });
-
-  newBtnCancel.addEventListener("click", () => {
-    modal.classList.add("hidden");
-    startDate = null;
-    endDate = null;
-  });
+function setError(isValid){
+    const error = document.getElementById("error");
+    if(isValid){
+        if(error.classList.contains("hidden")){
+            error.classList.remove("hidden");
+        }
+    }else{
+        if(!error.classList.contains("hidden")){
+            error.classList.add("hidden");
+        }
+    }
 }
-
 

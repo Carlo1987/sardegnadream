@@ -9,38 +9,47 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
+
+                <h2 class="text-xl font-bold"> {{ __('home.select_days') }} </h2>
+
+                <p class="text-lg"> {{ __('home.days_noPrice') }} </p>
                     
                     <form id="form" method="post" action="{{ route('home.postStep4') }}" class="p-6">
                         @csrf
 
+                         <x-btns-stepper back_href="{{ route('home.step3') }}"/>
+
                         <input type="hidden" name="id" id="id" value="{{ $home_data['id'] ?? null }}">
 
-                        <div class="mb-4">
-                            <x-input-label for="yearSelect" value="{{ __('home.select_year') }}:" class="text-xl mr-2" />
+                        <input type="hidden" name="home_prices" id="home_prices">
 
-                            <x-select-input 
-                                id="yearSelect" 
-                                name="yearSelect"
-                                class="block w-1/5"
-                                :options="$years"
-                            />
-                        </div>
 
-                <!--         <div class="mb-4 flex gap-2">
+                        <div class="mb-4 flex justify-center gap-4">
                             <div>
-                                <x-input-label for="yearSelect" value="{{ __('Da') }}:" class="text-xl mr-2" />
+                                <x-input-label for="yearSelect" value="{{ __('home.select_year') }}:" class="text-xl mr-2" />
+                                <x-select-input 
+                                    id="yearSelect" 
+                                    name="yearSelect"
+                                    class="block w-48"
+                                    :options="$years"
+                                />
                             </div>
-                            <select id="startDay"></select>
-                            <select id="startMonth"></select>
-                            <select id="endDay"></select>
-                            <select id="endMonth"></select>
-                            <input type="number" id="priceInput" placeholder="Prezzo" class="border px-2 py-1 rounded">
-                            <button id="addPrice" class="bg-theme px-3 py-1 rounded">Aggiungi</button>
-                        </div>  -->
+                            <div>
+                                 <div>
+                                    <x-input-label for="monthSelect" value="{{ __('home.select_month') }}:" class="text-xl mr-2" />
+                                    <x-select-input 
+                                        id="monthSelect" 
+                                        name="monthSelect"
+                                        class="block w-48"
+                                        :options="$months"
+                                    />
+                                </div>
+                            </div>
+                        </div>
 
                         <div id='calendar'></div>
                       
-                        <x-btns-stepper back_href="{{ route('home.step3') }}"/>
+                       
 
                     </form>
 
@@ -49,13 +58,12 @@
         </div>
     </div>
 </x-app-layout>
-@include('homes.partials.modal-upsert-price')
-
+@include('homes.partials.modal-price')
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        fillInputs();
+    document.getElementById('form').addEventListener('submit', function(e){
+        document.getElementById('home_prices').value = JSON.stringify(home_prices);
     });
-
-    function fillInputs(){}
 </script>
+
+

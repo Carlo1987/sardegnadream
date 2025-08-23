@@ -19,6 +19,8 @@ return [
     'edit' => 'Modifica',
     'back' => 'Indietro',
     'next' => 'Avanti',
+    'reset' => 'Reset',
+    'price' => 'Prezzo',
     'select_image' => 'Seleziona immagine',
     'select_images' => 'Seleziona immagini',
     'select_videos' => 'Seleziona video',

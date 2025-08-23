@@ -32,6 +32,12 @@ return [
     'sofa_beds' => 'N° divani-letto',
 
     'select_year' => 'Seleziona anno',
+    'select_month' => 'Seleziona mese',
+    'select_days' => 'Selezionare i giorni per impostare i prezzi',
+    'days_noPrice' => 'I giorni senza prezzo saranno considerati bloccati, quindi non prenotabili', 
+    'modalPrice_reset' => "Resetta prezzi giorni selezionati",
+    'modalPrice_confirm' => 'Conferma prezzo giorni selezionati',
+    'modalPrice_error' => 'Il prezzo inserito non è valido',
 
     'select_avatar' => 'Seleziona immagine di copertina',
     'select_images' => 'Scegli immagini (minimo 5)',

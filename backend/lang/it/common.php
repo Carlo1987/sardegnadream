@@ -24,4 +24,5 @@ return [
     'select_image' => 'Seleziona immagine',
     'select_images' => 'Seleziona immagini',
     'select_videos' => 'Seleziona video',
+    'error' => 'Errore di sistema',
 ];

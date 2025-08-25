@@ -13,15 +13,17 @@
                 <h2 class="text-xl font-bold"> {{ __('home.select_days') }} </h2>
 
                 <p class="text-lg"> {{ __('home.days_noPrice') }} </p>
+
+                <p class="text-lg"> {{ __('home.alert_go') }} </p>
                     
                     <form id="form" method="post" action="{{ route('home.postStep4') }}" class="p-6">
                         @csrf
 
-                         <x-btns-stepper back_href="{{ route('home.step3') }}"/>
+                        <x-btns-stepper back_href="{{ route('home.step3') }}"/>
 
                         <input type="hidden" name="id" id="id" value="{{ $home_data['id'] ?? null }}">
 
-                        <input type="hidden" name="home_prices" id="home_prices">
+                        <input type="hidden" name="home_prices" id="home_prices" value="{{ $home_prices }}">
 
 
                         <div class="mb-4 flex justify-center gap-4">
@@ -59,11 +61,5 @@
     </div>
 </x-app-layout>
 @include('homes.partials.modal-price')
-
-<script>
-    document.getElementById('form').addEventListener('submit', function(e){
-        document.getElementById('home_prices').value = JSON.stringify(home_prices);
-    });
-</script>
 
 

@@ -18,7 +18,7 @@
                         <div class="mb-4 grid grid-cols-1 sm:grid-cols-2">
                             <x-input-label for="avatar" value="{{ __('home.select_avatar') }}" class="text-lg col-span-1" />
 
-                            <x-btn-files name="avatar" class="col-span-1">
+                            <x-btn-files name="avatar" id="avatar" class="col-span-1">
                                 {{ __('common.select_image') }}  
                             </x-btn-files>
 
@@ -28,7 +28,7 @@
                         <div class="mb-4 grid grid-cols-1 sm:grid-cols-2">
                             <x-input-label for="avatar" value="{{ __('home.select_images') }}" class="text-lg col-span-1" />
 
-                            <x-btn-files name="images" isMultiple=true class="col-span-1">
+                            <x-btn-files name="images[]" id="images" isMultiple=true class="col-span-1">
                                 {{ __('common.select_images') }}  
                             </x-btn-files>
 
@@ -36,9 +36,9 @@
                         </div>
 
                           <div class="mb-4 grid grid-cols-1 sm:grid-cols-2">
-                            <x-input-label for="avatar" value="{{ __('home.select_videos') }}" class="text-lg col-span-1" />
+                            <x-input-label for="videos" value="{{ __('home.select_videos') }}" class="text-lg col-span-1" />
 
-                            <x-btn-files name="videos" isMultiple=true type="video"  class="col-span-1">
+                            <x-btn-files name="videos[]" id="videos" isMultiple=true type="video"  class="col-span-1">
                                 {{ __('common.select_videos') }}  
                             </x-btn-files>
 

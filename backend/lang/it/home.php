@@ -33,14 +33,15 @@ return [
 
     'select_year' => 'Seleziona anno',
     'select_month' => 'Seleziona mese',
-    'select_days' => 'Selezionare i giorni per impostare i prezzi',
-    'days_noPrice' => 'I giorni senza prezzo saranno considerati bloccati, quindi non prenotabili', 
+    'select_days' => 'Selezionare i giorni desiderati per impostare i prezzi.',
+    'days_noPrice' => 'I giorni senza prezzo saranno considerati bloccati, quindi non prenotabili.', 
+    'alert_go' => 'Una volta impostati i prezzi, cliccare avanti per lo step finale.',
     'modalPrice_reset' => "Resetta prezzi giorni selezionati",
     'modalPrice_confirm' => 'Conferma prezzo giorni selezionati',
     'modalPrice_error' => 'Il prezzo inserito non è valido',
 
-    'select_avatar' => 'Seleziona immagine di copertina',
-    'select_images' => 'Scegli immagini (minimo 5)',
-    'select_videos' => 'Scegli uno o più video (non obbligatorio - max 3)',
+    'select_avatar' => 'Inserisci immagine vetrina',
+    'select_images' => 'Inserisci immagini',
+    'select_videos' => 'inserisci video (massimo 3)',
 
 ];

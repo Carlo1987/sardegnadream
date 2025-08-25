@@ -11,17 +11,18 @@ const video_svg = `
 </svg>
 `; 
 
-function setStyleBtnFile(file_name, type) {
-    const fileInput = document.querySelector('#' + file_name);
+function setStyleBtnFile(file_id, type) {
+    const fileInput = document.querySelector('#' + file_id);
 
     fileInput.addEventListener('change', function() {
         const files = fileInput.files;
-        const btnFile = document.querySelector('#btn_' + file_name); 
+        const btnFile = document.querySelector('#btn_' + file_id); 
         const svg = type == 'image' ? image_svg : video_svg;
         let text = type == 'image' ? 'Images' : 'Video';
 
         if(files.length > 1){
             if(type == 'video' && files.length > MAX_VIDEOS_QTY){
+                fileInput.value = ""; 
                 return alert(`Il numero massimo di video è ${MAX_VIDEOS_QTY}`);
             }
             text = `${files.length} ${text}`;

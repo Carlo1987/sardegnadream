@@ -6,6 +6,54 @@ use App\Models\HomeService;
 
 trait HomeHelper
 {
+    public function getHomeServices()
+    {  
+        $home = session('home_session');
+        $array_homeServices = [];
+        $home_services = [];
+        
+        if(!isset($home['services']) && $home['id']){
+            $query_homeServices = HomeService::where('home_id', $home['id'])->first();
+            if($query_homeServices && $query_homeServices->count() > 0) {
+                $array_homeServices = explode('-', $query_homeServices->services);
+            }
+        }else if(isset($home['services'])){
+            $array_homeServices = $home['services'];
+        }
+        
+        $services = Service::all();
+        $haveServices = count($array_homeServices) > 0;
+        foreach($services as $service) {
+            $category = $service->service_category->name;
+            $service_value = $haveServices ? in_array($service->id, $array_homeServices) : false;
+
+            $home_services[$category][$service->id] = [
+                'name' => $service->name,
+                'image' => $service->image,
+                'value' => $service_value,
+            ];  
+        }
+
+        return $home_services;
+    }
+
+    public function getHomePrices()
+    {
+        $home = session('home_session');
+        $array_home_prices = '';
+
+        if(isset($home['home_prices'])){
+            $array_home_prices = json_encode($home['home_prices']);
+            
+        }else if(!isset($home['home_prices']) && $home['id']){
+            $query_home_prices = HomePrice::where('home_id', $home['id'])->get()->toArray();
+            if($query_home_prices && count($query_home_prices) > 0) {
+                $array_home_prices = json_encode($query_home_prices);
+            }
+        }
+        return $array_home_prices;
+    }
+
     public function getStates()
     {
         return [

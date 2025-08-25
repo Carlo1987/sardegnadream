@@ -2,7 +2,7 @@ import { Calendar } from '@fullcalendar/core';
 import itLocale from '@fullcalendar/core/locales/it';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { mergePrices, removePriceRange } from "./FullCalendar-merge-prices";
+import { initDays, calendaraddEvent, mergePrices, removePrices } from "./FullCalendar-logic-prices";
 
 let startDate = null;
 let endDate = null;
@@ -45,6 +45,7 @@ export default function FullCalendar() {
             }
         });
         calendar.render();
+        initDays(calendar);
         setYearAndMonth(calendar);
     });
 }
@@ -69,25 +70,18 @@ function setDays({ calendar, from, to }) {
             let current = new Date(from);
             while (current <= to) {
                 let day = new Date(current);
-
-                calendar.addEvent({
-                    id: "day-" + day.toISOString(),
-                    start: day,
-                    end: new Date(day.getFullYear(), day.getMonth(), day.getDate() + 1),
-                    allDay: true,
-                    display: "background",
-                    classNames: ["selected-days"],
-                    extendedProps: { price: price },
-                });
-
+                calendaraddEvent(calendar, day, price); 
                 current.setDate(current.getDate() + 1);
             }
 
             home_prices = mergePrices(home_prices, {
+                id: null,
                 from: from_string,
                 to: to_string,
                 price: parseFloat(price)
             })
+
+            handleHomePrices();
             console.log(home_prices);
             startDate = null;
             endDate = null;
@@ -99,15 +93,21 @@ function setDays({ calendar, from, to }) {
                 }
             });
 
-            home_prices = removePriceRange(home_prices, {
+            home_prices = removePrices(home_prices, {
                 from: from_string,
                 to: to_string
             });
 
+            handleHomePrices();
+            console.log(home_prices);
             startDate = null;
             endDate = null;
         }
     });
+}
+
+function handleHomePrices(){
+    return document.getElementById('home_prices').value = JSON.stringify(home_prices);
 }
 
 function setYearAndMonth(calendar){

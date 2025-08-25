@@ -22,7 +22,12 @@ class Step5Request extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'id' => ['nullable', 'integer'],
+            'avatar' => ['required_without:id', 'image', 'mimes:jpeg,png,jpg,gif,webp'],
+            'images' => ['required_without:id', 'array', 'min:5'],
+            'images.*' => ['image', 'mimes:jpeg,png,jpg,gif,webp'],
+            'videos' => ['nullable', 'array', 'max:3'],
+            'videos.*' => ['mimetypes:video/mp4,video/avi,video/mpeg'],
         ];
     }
 }
